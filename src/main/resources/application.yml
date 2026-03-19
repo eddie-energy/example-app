@@ -62,4 +62,6 @@ example-app:
   rtd-lifetime-window-minutes: 15
 
 dataNeeds:
+  name: data-needs
+  contextId: data-needs-client
   url: ${example-app.eddie.public-url}/data-needs

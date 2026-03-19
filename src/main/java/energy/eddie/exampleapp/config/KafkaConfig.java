@@ -8,7 +8,7 @@ import energy.eddie.exampleapp.serialization.SerdeFactory;
 import energy.eddie.exampleapp.serialization.SerdeInitializationException;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;

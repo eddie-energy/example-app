@@ -25,7 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
             CorsConfigurationSource corsConfigurationSource
-    ) throws Exception {
+    ) {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
@@ -37,6 +37,7 @@ public class SecurityConfig {
                                 "/ws/**",
                                 "/assets/**",
                                 "/favicon.svg",
+                                "/index.html",
                                 "/")
                         .permitAll()
                         .anyRequest().authenticated()

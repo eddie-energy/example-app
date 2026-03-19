@@ -25,7 +25,7 @@ public class AuthService {
             log.debug("Successfully Parsed UUID ({}) from token!", uuid);
             return uuid;
         } catch (IllegalArgumentException ex) {
-            log.error("Could not parse UUID from token, because the Jwt User has not valid UUID!");
+            log.error("Could not parse UUID from token, because the Jwt User has no valid UUID!");
             throw new InvalidUserException();
         }
     }

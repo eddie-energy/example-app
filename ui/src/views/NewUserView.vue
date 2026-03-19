@@ -13,8 +13,8 @@ const historicDataneedID = import.meta.env.VITE_EDDIE_HISTORIC_DATANEED_ID
 const realtimeDataneedID = import.meta.env.VITE_EDDIE_REALTIME_DATANEED_ID
 
 const userId = ref<string | undefined>()
-const historicButton = useTemplateRef('historic-eddie-button')
-const realtimeButton = useTemplateRef('realtime-eddie-button')
+const historicButton = useTemplateRef<HTMLButtonElement>('historic-eddie-button')
+const realtimeButton = useTemplateRef<HTMLButtonElement>('realtime-eddie-button')
 
 const handleEddieButtonSuccess = async () => {
   await fetchPermissions()
@@ -28,8 +28,11 @@ onMounted(async () => {
     console.error('Error loading Keycloak profile', error)
   }
 
-  historicButton.value.addEventListener('eddie-request-accepted', handleEddieButtonSuccess)
-  realtimeButton.value.addEventListener('eddie-request-accepted', handleEddieButtonSuccess)
+  historicButton.value?.addEventListener('eddie-request-accepted', handleEddieButtonSuccess)
+  realtimeButton.value?.addEventListener('eddie-request-accepted', handleEddieButtonSuccess)
+
+  console.log(historicDataneedID)
+  console.log(realtimeDataneedID)
 })
 
 const handleSkip = async () => {

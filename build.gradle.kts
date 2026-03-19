@@ -4,9 +4,9 @@ import com.github.gradle.node.pnpm.task.PnpmTask
 
 plugins {
     id("java")
-    id("org.springframework.boot") version "3.4.4"
+    id("org.springframework.boot") version "4.0.1"
     id("io.spring.dependency-management") version "1.1.7"
-    id("org.openapi.generator") version "7.11.0"
+    id("org.openapi.generator") version "7.14.0"
     id("com.github.node-gradle.node") version "5.0.0"
 }
 
@@ -27,25 +27,23 @@ configurations {
 
 repositories {
     mavenCentral()
-    maven {
-        url = uri("https://maven.pkg.github.com/eddie-energy/eddie")
-        credentials {
-            username = project.findProperty("gpr.user") as String? ?: System.getenv("GPR_USER")
-            password = project.findProperty("gpr.key") as String? ?: System.getenv("GPR_TOKEN")
-        }
-    }
 }
 
 dependencies {
-    implementation("energy.eddie:cim:3.1.0")
+    implementation("energy.eddie:cim:3.6.0")
+
+    implementation(platform("org.springframework.cloud:spring-cloud-dependencies:2025.1.0"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+    implementation("org.springframework.boot:spring-boot-starter-kafka")
+    implementation("org.springframework.cloud:spring-cloud-context")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation("org.springframework:spring-websocket")
-    implementation("org.springframework.kafka:spring-kafka")
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.2.1")
+
+    implementation("io.github.openfeign.form:feign-form:3.8.0")
 
     implementation("org.postgresql:postgresql:42.7.5")
     implementation("org.flywaydb:flyway-core:11.10.1")
@@ -58,12 +56,10 @@ dependencies {
     implementation("io.swagger.core.v3:swagger-annotations:2.2.22")
 
     implementation("org.glassfish.jaxb:jaxb-runtime")
-    implementation("com.fasterxml.jackson.core:jackson-databind")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
     implementation("com.fasterxml.jackson.module:jackson-module-jakarta-xmlbind-annotations")
-    implementation("com.fasterxml.jackson.core:jackson-core")
     implementation("jakarta.annotation:jakarta.annotation-api")
 
     compileOnly("org.projectlombok:lombok")
@@ -105,8 +101,10 @@ tasks.register<GenerateTask>("generateDataNeedsClient") {
     additionalProperties.set(
         mapOf(
             "useTags" to "true",
-            "useSpringBoot3" to "true",
-            "library" to "spring-cloud"
+            "useJakartaEe" to "true",
+            "library" to "spring-cloud",
+            "useFeignClientContextId" to "true",
+            "feignClientConfig" to "false"
         )
     )
 }
