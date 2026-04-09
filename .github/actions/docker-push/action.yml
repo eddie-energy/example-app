@@ -31,7 +31,7 @@ runs:
     - name: Build Container image with Spring Boot
       shell: bash
       run: |
-        ./gradlew ${{ inputs.application-name }}:bootBuildImage \
+        ./gradlew bootBuildImage \
           -PdockerImage=ghcr.io/${{ github.repository_owner }}/${{ inputs.application-name }}:${{ inputs.version }}
 
     - name: Login to GHCR
