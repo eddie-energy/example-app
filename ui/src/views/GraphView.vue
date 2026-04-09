@@ -31,6 +31,9 @@ const fetchPermission = async () => {
     if (permission.value?.permissionType === 'REAL_TIME_DATA') {
       granularity.value = undefined
     }
+    permission.value?.timeSeriesList?.timeSeries.forEach(item => {
+      item.timestamp = new Date(item.timestamp).getTime()
+    })
   } else {
     permission.value = undefined
   }
@@ -104,20 +107,21 @@ const startEndDate = computed(() => {
     }
   }
   const endTimestamp = timeSeries.reduce(
-    (a, b) => (a.timestamp > b.timestamp ? a : b),
-    timeSeries[0],
+      (a, b) => (a.timestamp > b.timestamp ? a : b),
+      timeSeries[0],
   ).timestamp
   if (timeSeries.filter((ts) => ts.timestamp === endTimestamp).length === 1) {
     // Subtract 1 minute (60 seconds) from end timestamp
     return {
       start: timeSeries.reduce((a, b) => (a.timestamp < b.timestamp ? a : b), timeSeries[0])
-        .timestamp,
+          .timestamp,
       end: endTimestamp - 60,
     }
   }
+
   return {
     start: timeSeries.reduce((a, b) => (a.timestamp < b.timestamp ? a : b), timeSeries[0])
-      .timestamp,
+        .timestamp,
     end: endTimestamp,
   }
 })
@@ -126,11 +130,13 @@ const aggregateData = () => {
   // temp will store sum + count for accurate averaging
   const temp: { [timestamp: string]: { sum: number; count: number } } = {}
 
+  permission.value?.timeSeriesList?.timeSeries.forEach(item => {
+    item.timestamp = new Date(item.timestamp).getTime()
+  })
   permission.value?.timeSeriesList?.timeSeries
     ?.sort((a, b) => a.timestamp - b.timestamp)
     ?.forEach(({ timestamp, value }) => {
       let rounded = timestamp
-
       if (permission.value?.permissionType === 'REAL_TIME_DATA') {
         const agg = parseInt(realtimeAggregate.value) // e.g. 30 for 30s intervals
         rounded = Math.floor(timestamp / agg) * agg
@@ -182,17 +188,20 @@ const filterDataBasedOnDate = (temp: { [timestamp: string]: number }) => {
   const [start, end] = date.value
   const startDate = new Date(start)
   startDate.setHours(0, 0, 0, 0)
-  const startTs = Math.floor(startDate.getTime() / 1000)
+  const startTs = permission.value?.permissionType === 'VALIDATED_HISTORICAL_DATA'
+      ? Math.floor(startDate.getTime())
+      : Math.floor(startDate.getTime()) / 1000
   const endDate = end ? new Date(end) : startDate
   endDate.setHours(23, 59, 59, 999)
-  const endTs = Math.floor(endDate.getTime() / 1000)
-
+  const endTs = permission.value?.permissionType === 'VALIDATED_HISTORICAL_DATA'
+      ? Math.floor(endDate.getTime())
+      : Math.floor(endDate.getTime()) / 1000
   if (granularity.value !== 'P1M') {
     return Object.fromEntries(
-      Object.entries(temp).filter(([timestamp]) => {
-        const ts = Number(timestamp)
-        return ts >= startTs && ts <= endTs
-      }),
+        Object.entries(temp).filter(([timestamp]) => {
+          const ts = Number(timestamp)
+          return ts >= startTs && ts <= endTs
+        }),
     )
   }
 

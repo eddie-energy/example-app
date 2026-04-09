@@ -1,0 +1,26 @@
+name: Example App PR
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    types:
+      - opened
+      - reopened
+      - synchronize
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Example App
+    runs-on: self-hosted
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Build Example App
+        uses: ./.github/actions/build-spring
+        with:
+          application-name: example-app
+          gpr-user: ${{ secrets.GPR_USER }}
+          gpr-token: ${{ secrets.GPR_TOKEN }}

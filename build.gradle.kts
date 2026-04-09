@@ -3,11 +3,11 @@ import com.github.gradle.node.pnpm.task.PnpmInstallTask
 import com.github.gradle.node.pnpm.task.PnpmTask
 
 plugins {
-    id("java")
-    id("org.springframework.boot") version "4.0.1"
-    id("io.spring.dependency-management") version "1.1.7"
-    id("org.openapi.generator") version "7.14.0"
-    id("com.github.node-gradle.node") version "5.0.0"
+    alias(libs.plugins.java)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+    alias(libs.plugins.openapi.generator)
+    alias(libs.plugins.node)
 }
 
 group = "energy.eddie"
@@ -30,47 +30,54 @@ repositories {
 }
 
 dependencies {
-    implementation("energy.eddie:cim:3.6.0")
+    implementation(libs.cim)
 
-    implementation(platform("org.springframework.cloud:spring-cloud-dependencies:2025.1.0"))
+    implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${libs.versions.spring.cloud.get()}"))
 
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
-    implementation("org.springframework.boot:spring-boot-starter-kafka")
-    implementation("org.springframework.cloud:spring-cloud-context")
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
-    implementation("org.springframework:spring-websocket")
+    // --- Spring ---
+    implementation(libs.bundles.spring.boot.starters)
+    implementation(libs.spring.cloud.context)
+    implementation(libs.spring.cloud.starter.openfeign)
+    implementation(libs.spring.websocket)
 
-    implementation("io.github.openfeign.form:feign-form:3.8.0")
+    // --- Feign ---
+    implementation(libs.feign.form)
 
-    implementation("org.postgresql:postgresql:42.7.5")
-    implementation("org.flywaydb:flyway-core:11.10.1")
-    implementation("org.flywaydb:flyway-database-postgresql:11.10.1")
+    // --- Database ---
+    implementation(libs.postgresql)
+    implementation(libs.flyway.core)
+    implementation(libs.flyway.postgresql)
 
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
-    implementation("org.openapitools:jackson-databind-nullable:0.2.6")
+    // --- OpenAPI ---
+    implementation(libs.springdoc.openapi)
+    implementation(libs.jackson.databind.nullable)
+    implementation(libs.swagger.annotations)
 
-    implementation("org.eclipse.paho:org.eclipse.paho.mqttv5.client:1.2.5")
-    implementation("io.swagger.core.v3:swagger-annotations:2.2.22")
+    // --- Messaging ---
+    implementation(libs.mqtt.client)
 
-    implementation("org.glassfish.jaxb:jaxb-runtime")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
-    implementation("com.fasterxml.jackson.module:jackson-module-jakarta-xmlbind-annotations")
-    implementation("jakarta.annotation:jakarta.annotation-api")
+    // --- Jackson ---
+    implementation(libs.jackson.datatype.jsr310)
+    implementation(libs.jackson.datatype.jdk8)
+    implementation(libs.jackson.dataformat.xml)
+    implementation(libs.jackson.module.jakarta.xmlbind)
 
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
+    // --- Jakarta / JAXB ---
+    implementation(libs.jakarta.annotation)
+    implementation(libs.jaxb.runtime)
 
-    testImplementation("org.springframework.boot:spring-boot-testcontainers")
-    testImplementation("org.testcontainers:postgresql:1.21.0")
-    testCompileOnly("org.projectlombok:lombok")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.kafka:spring-kafka-test")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // --- Lombok ---
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
+
+    // --- Testing ---
+    testImplementation(libs.spring.boot.testcontainers)
+    testImplementation(libs.testcontainers.postgresql)
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.spring.kafka.test)
+
+    testCompileOnly(libs.lombok)
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 tasks.withType<Test> {

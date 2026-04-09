@@ -1,0 +1,29 @@
+name: "Build Spring Application"
+description: "Build Spring Application with gradle (incl. tests, spotless, etc.)"
+
+inputs:
+  application-name:
+    description: "Application name"
+    required: true
+  gpr-user:
+    description: "GitHub Package Registry User"
+    required: true
+  gpr-token:
+    description: "GitHub Package Registry Token"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: "21"
+        distribution: "temurin"
+
+    - name: Gradle Build
+      shell: bash
+      run: ./gradlew ${{ inputs.application-name}}:build
+      env:
+        GPR_TOKEN: ${{ inputs.gpr-token}}
+        GPR_USER: ${{ inputs.gpr-user }}

@@ -48,6 +48,38 @@ public class PermissionService {
         return permission;
     }
 
+    public boolean removePermissionById(Long permissionId) {
+        var permission = permissionRepository.findById(permissionId);
+        if (permission.isPresent()) {
+            var userId = authService.getCurrentUserId().toString();
+            if (!permission.get().getUserId().equals(userId)) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            }
+
+            permissionRepository.deleteById(permissionId);
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean renamePermissionById(Long permissionId, String newName) {
+        var permission = permissionRepository.findById(permissionId);
+        if (permission.isPresent()) {
+            var userId = authService.getCurrentUserId().toString();
+            if (!permission.get().getUserId().equals(userId)) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            }
+
+            permission.get().setName(newName);
+            permissionRepository.save(permission.get());
+
+            return true;
+        }
+
+        return false;
+    }
+
     public void handlePermissionEnvelope(PermissionEnvelope permissionEnvelope) {
         var messageDocumentHeaderMetaInformation = permissionEnvelope.getMessageDocumentHeader().getMessageDocumentHeaderMetaInformation();
         var permissionMarketDocument = permissionEnvelope.getPermissionMarketDocument();

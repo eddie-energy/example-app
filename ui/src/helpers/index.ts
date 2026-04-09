@@ -22,5 +22,5 @@ export const beautifyGranularityName = (name?: string) => {
 }
 
 export const getDateFromUTC = (time: number) => {
-  return new Date(time * 1000)
+  return new Date(time)
 }

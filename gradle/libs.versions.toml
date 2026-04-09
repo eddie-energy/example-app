@@ -1,0 +1,90 @@
+[versions]
+spring-boot = "4.0.1"
+spring-dependency-management = "1.1.7"
+spring-cloud = "2025.1.0"
+openapi-generator = "7.14.0"
+node-gradle = "5.0.0"
+
+postgresql = "42.7.5"
+flyway = "11.10.1"
+springdoc = "2.2.0"
+jackson-nullable = "0.2.6"
+feign-form = "3.8.0"
+mqtt = "1.2.5"
+swagger-annotations = "2.2.22"
+testcontainers = "1.21.0"
+
+
+
+[libraries]
+
+# --- Custom ---
+cim = { module = "energy.eddie:cim", version = "3.6.0" }
+
+# --- Spring Boot ---
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
+spring-boot-starter-oauth2-resource-server = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server" }
+spring-boot-starter-kafka = { module = "org.springframework.boot:spring-boot-starter-kafka" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot-testcontainers = { module = "org.springframework.boot:spring-boot-testcontainers" }
+
+# --- Spring Core ---
+spring-websocket = { module = "org.springframework:spring-websocket" }
+
+# --- Spring Cloud ---
+spring-cloud-context = { module = "org.springframework.cloud:spring-cloud-context" }
+spring-cloud-starter-openfeign = { module = "org.springframework.cloud:spring-cloud-starter-openfeign" }
+
+# --- Database ---
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
+flyway-postgresql = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
+
+# --- OpenAPI / Swagger ---
+springdoc-openapi = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+jackson-databind-nullable = { module = "org.openapitools:jackson-databind-nullable", version.ref = "jackson-nullable" }
+swagger-annotations = { module = "io.swagger.core.v3:swagger-annotations", version.ref = "swagger-annotations" }
+
+# --- Feign ---
+feign-form = { module = "io.github.openfeign.form:feign-form", version.ref = "feign-form" }
+
+# --- Messaging ---
+mqtt-client = { module = "org.eclipse.paho:org.eclipse.paho.mqttv5.client", version.ref = "mqtt" }
+
+# --- Jackson ---
+jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" }
+jackson-datatype-jdk8 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jdk8" }
+jackson-dataformat-xml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-xml" }
+jackson-module-jakarta-xmlbind = { module = "com.fasterxml.jackson.module:jackson-module-jakarta-xmlbind-annotations" }
+
+# --- Jakarta / JAXB ---
+jakarta-annotation = { module = "jakarta.annotation:jakarta.annotation-api" }
+jaxb-runtime = { module = "org.glassfish.jaxb:jaxb-runtime" }
+
+# --- Lombok ---
+lombok = { module = "org.projectlombok:lombok" }
+
+# --- Testing ---
+testcontainers-postgresql = { module = "org.testcontainers:postgresql", version.ref = "testcontainers" }
+spring-kafka-test = { module = "org.springframework.kafka:spring-kafka-test" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+
+
+[bundles]
+spring-boot-starters = [
+    "spring-boot-starter-web",
+    "spring-boot-starter-data-jpa",
+    "spring-boot-starter-security",
+    "spring-boot-starter-oauth2-resource-server",
+    "spring-boot-starter-kafka"
+]
+
+
+[plugins]
+java = { id = "java" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
+openapi-generator = { id = "org.openapi.generator", version.ref = "openapi-generator" }
+node = { id = "com.github.node-gradle.node", version.ref = "node-gradle" }
