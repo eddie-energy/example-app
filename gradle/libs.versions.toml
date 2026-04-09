@@ -39,8 +39,8 @@ spring-cloud-starter-openfeign = { module = "org.springframework.cloud:spring-cl
 
 # --- Database ---
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
-flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
-flyway-postgresql = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
+flyway-core = { module = "org.springframework.boot:spring-boot-starter-flyway", version.ref = "spring-boot" }
+flyway-postgresql = { module = "org.flywaydb:flyway-database-postgresql" }
 
 # --- OpenAPI / Swagger ---
 springdoc-openapi = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
