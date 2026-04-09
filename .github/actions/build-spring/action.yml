@@ -23,7 +23,7 @@ runs:
 
     - name: Gradle Build
       shell: bash
-      run: ./gradlew ${{ inputs.application-name}}:build
+      run: ./gradlew build
       env:
         GPR_TOKEN: ${{ inputs.gpr-token}}
         GPR_USER: ${{ inputs.gpr-user }}
