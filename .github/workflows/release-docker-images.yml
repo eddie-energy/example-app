@@ -1,0 +1,21 @@
+name: Release Eddie Example App image
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  docker-push-example-app:
+    runs-on: self-hosted
+
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/docker-push
+        with:
+          version: snapshot-${{ github.sha }}
+          application-name: example-app
+          push-latest: 'true'
+          github-token: ${{ secrets.GITHUB_TOKEN }}

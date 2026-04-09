@@ -38,7 +38,7 @@ public class SecurityConfig {
                                 "/assets/**",
                                 "/favicon.svg",
                                 "/index.html",
-                                "/")
+                                "/**")
                         .permitAll()
                         .anyRequest().authenticated()
                 )

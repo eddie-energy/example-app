@@ -14,7 +14,7 @@ const isOpen = ref(false)
 <template>
   <div class="permission-details">
     <header class="permission-dropdown" @click="isOpen = !isOpen">
-      <h2 class="heading-4">Info for Permission {{ permission.eddiePermissionId }}</h2>
+      <h2 class="heading-4">Info for Permission {{ permission.name }}</h2>
       <ChevronRightIcon class="chevron" :class="{ rotate: isOpen }" />
     </header>
     <Transition>

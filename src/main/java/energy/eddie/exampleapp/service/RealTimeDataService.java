@@ -50,7 +50,7 @@ public class RealTimeDataService {
     @Transactional
     public void handelRealTimeDataEnvelope(RTDEnvelope rtdEnvelope) {
         var eddiePermissionId = rtdEnvelope.getMessageDocumentHeaderMetaInformationPermissionId();
-        permissionRepository.findByEddiePermissionId(eddiePermissionId).ifPresentOrElse((permission) -> {
+        permissionRepository.findByEddiePermissionId(eddiePermissionId).ifPresentOrElse(permission -> {
             List<TimeSeries> newTimeSeries;
             if (permission.getTimeSeriesList() == null) {
                 var timeSeriesList = TimeSeriesList.builder()

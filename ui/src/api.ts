@@ -79,3 +79,11 @@ export async function getPermissions(): Promise<Permission[]> {
 export async function getPermissionByID(id: number): Promise<PermissionDetailsType> {
   return fetch(`/permissions/${id}`)
 }
+
+export async function removePermissionByID(id: number) : Promise<boolean> {
+  return fetch(`/permissions/remove/${id}`)
+}
+
+export async function renamePermissionByID(id: number, newName: string) : Promise<boolean> {
+  return fetch(`/permissions/rename/${id}?newName=${newName}`)
+}

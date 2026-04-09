@@ -6,10 +6,7 @@ import energy.eddie.exampleapp.service.PermissionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +28,23 @@ public class PermissionController {
         return permission
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("remove/{permissionId}")
+    public ResponseEntity<Boolean> removePermissionById(@PathVariable("permissionId") Long permissionId) {
+        var wasRemoved = permissionService.removePermissionById(permissionId);
+        return wasRemoved
+                ? ResponseEntity.ok(true)
+                : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("rename/{permissionId}")
+    public ResponseEntity<Boolean> renamePermissionById(
+            @PathVariable("permissionId") Long permissionId,
+            @RequestParam("newName") String newName) {
+        var wasRemoved = permissionService.renamePermissionById(permissionId, newName);
+        return wasRemoved
+                ? ResponseEntity.ok(true)
+                : ResponseEntity.notFound().build();
     }
 }
