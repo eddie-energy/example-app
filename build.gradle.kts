@@ -160,12 +160,6 @@ tasks.register<Exec>("dockerBuild") {
     commandLine("docker", "build", "-t", "example-app:latest", ".")
 }
 
-tasks.named<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("bootBuildImage") {
-    docker {
-        host.set("npipe:////./pipe/docker_engine")
-    }
-}
-
 tasks.named("processResources") {
     dependsOn(":pnpmBuild")
 }
