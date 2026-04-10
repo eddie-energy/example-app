@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.spring.cloud.context)
     implementation(libs.spring.cloud.starter.openfeign)
     implementation(libs.spring.websocket)
+    implementation(libs.spring.boot.starter.thymeleaf)
 
     // --- Feign ---
     implementation(libs.feign.form)

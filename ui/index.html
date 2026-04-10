@@ -1,13 +1,26 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
+    <!--/*/
+    <base th:href="${exampleAppBackendUrl + '/'}">
+    /*/-->
+
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script th:inline="javascript">
+        const THYMELEAF_BACKEND_BASE_URL = /*[[${exampleAppBackendUrl}]]*/ undefined
+        const THYMELEAF_KEYCLOAK_URL = /*[[${keycloakUrl}]]*/ undefined
+        const THYMELEAF_KEYCLOAK_REALM = /*[[${keycloakRealm}]]*/ undefined
+        const THYMELEAF_KEYCLOAK_CLIENT = /*[[${keycloakClient}]]*/ undefined
+    </script>
+
     <title>Eddie Example App</title>
   </head>
   <body>
     <script type="module" src="%VITE_EDDIE_URL%/lib/eddie-components.js"></script>
+
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>

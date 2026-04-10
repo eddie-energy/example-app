@@ -1,7 +1,7 @@
 import { keycloak } from './keycloak'
 import type { Permission, PermissionDetailsType } from './types'
 
-export const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL
+export const BASE_URL = THYMELEAF_BACKEND_BASE_URL ?? import.meta.env.VITE_BACKEND_BASE_URL
 
 const FALLBACK_ERROR_MESSAGES = {
   400: 'This action was declined as invalid. Please check your input.',
