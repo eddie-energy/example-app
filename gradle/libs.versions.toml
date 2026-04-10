@@ -6,7 +6,6 @@ openapi-generator = "7.14.0"
 node-gradle = "5.0.0"
 
 postgresql = "42.7.5"
-flyway = "11.10.1"
 springdoc = "2.2.0"
 jackson-nullable = "0.2.6"
 feign-form = "3.8.0"
@@ -28,6 +27,7 @@ spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-
 spring-boot-starter-oauth2-resource-server = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server" }
 spring-boot-starter-kafka = { module = "org.springframework.boot:spring-boot-starter-kafka" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot-starter-thymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf" }
 spring-boot-testcontainers = { module = "org.springframework.boot:spring-boot-testcontainers" }
 
 # --- Spring Core ---

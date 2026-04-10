@@ -58,8 +58,13 @@ example-app:
     username: ${MQTT_USERNAME}
     password: ${MQTT_PASSWORD}
     rtd-topic: ${MQTT_RTD_TOPIC:aiida/v1/+/data/outbound/+}
+  keycloak:
+    url: ${KEYCLOAK_URL:https://eddie-demo.projekte.fh-hagenberg.at/iam/}
+    realm: ${KEYCLOAK_REALM:EDDIE}
+    client: ${KEYCLOAK_CLIENT:example-app-client}
 
   rtd-lifetime-window-minutes: 15
+  backend-base-url: ${BACKEND_BASE_URL:http://localhost:8080}
 
 dataNeeds:
   name: data-needs
