@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @SuppressWarnings("java:S6856")
-    @GetMapping("/{path:[^.]*}")
+    @GetMapping(value = { "/", "/{path:[^\\.]*}", "/**/{path:[^\\.]*}" })
     public String vue(
             Model model,
             @Value("${example-app.backend-base-url}") String exampleAppBackendUrl,
@@ -22,6 +22,6 @@ public class HomeController {
         model.addAttribute("keycloakRealm", keycloakRealm);
         model.addAttribute("keycloakClient", keycloakClient);
 
-        return "forward:/index.html";
+        return "index";
     }
 }
