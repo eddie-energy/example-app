@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { getPermissionByID } from '@/api'
-import type { PermissionDetailsType } from '@/types'
+import type {Permission, PermissionDetailsType} from '@/types'
 import { onMounted, ref } from 'vue'
 import PermissionIcon from '@/assets/icons/PermissionIcon.svg'
 import ContextMenuIcon from '@/assets/icons/ContextMenuIcon.svg'
 import { useRouter } from 'vue-router'
 import StatusTag from './StatusTag.vue'
 import { getDateFromUTC } from '@/helpers'
-import { fetchPermissions } from "@/stores/permissions.ts";
+import {fetchPermissions, permissions} from "@/stores/permissions.ts";
 import { onClickOutside } from '@vueuse/core'
 import RenamePermissionModal from "@/components/modals/RenamePermissionModal.vue";
 import DeletePermissionModal from "@/components/modals/DeletePermissionModal.vue";
@@ -16,20 +16,15 @@ const router = useRouter()
 const renamePermissionModal = ref<HTMLDialogElement>()
 const deletePermissionModal = ref<HTMLDialogElement>()
 
-const { id } = defineProps<{
-  id: number
+const { permission } = defineProps<{
+  permission: Permission,
 }>()
 
-const permission = ref<PermissionDetailsType>()
 const openContextMenu = ref<boolean>(false)
 const menuRef = ref<HTMLElement | null>(null)
 
-onMounted(async () => {
-  permission.value = await getPermissionByID(id)
-})
-
 const moveToPermissionDetailsType = () => {
-  router.push(`/graph/${id}`)
+  router.push(`/graph/${permission.id}`)
 }
 
 const showRenamePermissionModal = async () => {
@@ -70,11 +65,11 @@ onClickOutside(menuRef, () => {
       <div v-if="openContextMenu" class="context-menu">
         <button @click.stop="showRenamePermissionModal">Rename</button>
         <Teleport to="body">
-          <RenamePermissionModal :id="id" :name="permission.name" ref="renamePermissionModal" @close="handleModalClose"/>
+          <RenamePermissionModal :id="permission.id" :name="permission.name" ref="renamePermissionModal" @close="handleModalClose"/>
         </Teleport>
         <button @click.stop="showDeletePermissionModal">Delete</button>
         <Teleport to="body">
-          <DeletePermissionModal :id="id" :name="permission.name" ref="deletePermissionModal" @close="handleModalClose"/>
+          <DeletePermissionModal :id="permission.id" :name="permission.name" ref="deletePermissionModal" @close="handleModalClose"/>
         </Teleport>
       </div>
     </div>
