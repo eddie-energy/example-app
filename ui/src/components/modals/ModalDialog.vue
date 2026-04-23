@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: 2025 The EDDIE Developers <eddie.developers@fh-hagenberg.at>
+SPDX-FileCopyrightText: 2026 The EDDIE Developers <eddie.developers@fh-hagenberg.at>
 SPDX-License-Identifier: Apache-2.0
 -->
 
@@ -18,7 +18,10 @@ const showModal = () => {
 }
 const close = () => {
   modal.value?.close()
+  emit('close')
 }
+
+const emit = defineEmits(['close'])
 
 defineExpose({ showModal, close })
 </script>

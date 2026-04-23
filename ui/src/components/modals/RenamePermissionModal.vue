@@ -1,8 +1,9 @@
 <script setup lang="ts">
 
-import { ref } from "vue"
+import {onMounted, ref} from "vue"
 import { renamePermissionByID } from '@/api'
 import ModalDialog from "@/components/modals/ModalDialog.vue";
+import CustomButton from "@/components/CustomButton.vue";
 
 const renamePermissionModal = ref<HTMLDialogElement>()
 const permissionName = ref('')
@@ -16,11 +17,18 @@ const handleRenamePermission = async () => {
   renamePermissionModal.value?.close()
 }
 
-const { id } = defineProps<{
+const { id, name } = defineProps<{
   id: number
+  name: string
 }>()
 
+const emit = defineEmits(['close'])
+
 defineExpose({ showModal })
+
+onMounted(() => {
+  permissionName.value = name
+})
 
 </script>
 
@@ -28,23 +36,24 @@ defineExpose({ showModal })
   <ModalDialog
       title="Rename Permission"
       ref="renamePermissionModal"
+      @close="$emit('close')"
   >
     <form class="permission-form bottom-margin">
       <label for="code">Enter new name:</label>
       <input
           type="text"
           id="code"
-          placeholder="PermissionName"
+          @placeholder="permissionName"
           required
           class="name-input text-normal"
           v-model="permissionName"
       />
     </form>
     <div class="action-buttons">
-      <Button button-style="error-secondary" @click.stop="renamePermissionModal?.close()">
+      <CustomButton button-style="error-secondary" @click.stop="renamePermissionModal?.close()">
         Cancel
-      </Button>
-      <Button @click.stop="handleRenamePermission" class="hide-on-load">Rename</Button>
+      </CustomButton>
+      <CustomButton @click.stop="handleRenamePermission" class="hide-on-load">Rename</CustomButton>
     </div>
   </ModalDialog>
 </template>
