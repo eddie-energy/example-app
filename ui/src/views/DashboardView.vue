@@ -15,8 +15,8 @@ const permissionCategory = ref<'VALIDATED_HISTORICAL_DATA' | 'REAL_TIME_DATA'>(
 )
 const filteredPermissions = ref(
   permissions.value
-    .filter((perm) => perm.type === permissionCategory.value)
-    .sort((a, b) => b.createdAt - a.createdAt),
+      .filter((perm) => perm.type === permissionCategory.value)
+      .sort((a, b) => b.createdAt - a.createdAt)
 )
 const eddieButton = useTemplateRef('eddie-button')
 
@@ -98,7 +98,7 @@ onMounted(async () => {
           <PermissionItem
             :id="permission.id"
             v-for="permission in filteredPermissions"
-            :key="permission.id"
+            :key="`${permission.id}-${permission.name}`"
           />
           <h2 v-if="!filteredPermissions.length">No {{ selectedTab }} Permissions</h2>
         </TransitionGroup>

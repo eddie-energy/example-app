@@ -30,7 +30,7 @@ const { buttonStyle = 'primary' } = defineProps<{
   border: 1px solid var(--button-bg-color);
   border-radius: 2rem;
   font-weight: 600;
-  width: 100%;
+
   height: fit-content;
   font-family: 'Poppins';
   font-size: 1rem;
