@@ -48,8 +48,8 @@ example-app:
   eddie:
     id: eddie-demo-hardening
     public-url: ${EDDIE_PUBLIC_URL:https://eddie-demo.projekte.fh-hagenberg.at/hardening/eddie}
-    historic-dataneed-id: ${EDDIE_HISTORIC_DATANEED_ID:a32c5da1-2ca6-426b-8438-21d5b33e3b12}
-    realtime-dataneed-id: ${EDDIE_REALTIME_DATANEED_ID:d3aa2f01-f1be-436a-bcac-d2e0dae95848}
+    historic-dataneed-id: ${EDDIE_HISTORIC_DATANEED_ID:9bd0668f-cc19-40a8-99db-dc2cb2802b17}
+    realtime-dataneed-id: ${EDDIE_REALTIME_DATANEED_ID:5dc71d7e-e8cd-4403-a3a8-d3c095c97a84}
   kafka:
     message-format: xml
     permission-cim-version: cim_0_82
