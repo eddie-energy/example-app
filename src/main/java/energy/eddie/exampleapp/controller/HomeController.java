@@ -15,12 +15,18 @@ public class HomeController {
             @Value("${example-app.backend-base-url}") String exampleAppBackendUrl,
             @Value("${example-app.keycloak.url}") String keycloakUrl,
             @Value("${example-app.keycloak.realm}") String keycloakRealm,
-            @Value("${example-app.keycloak.client}") String keycloakClient
+            @Value("${example-app.keycloak.client}") String keycloakClient,
+            @Value("${example-app.eddie.public-url}") String eddieUrl,
+            @Value("${example-app.eddie.historic-dataneed-id}") String eddieHistoricDataneedId,
+            @Value("${example-app.eddie.realtime-dataneed-id}") String eddieRealtimeDataneedId
     ) {
         model.addAttribute("exampleAppBackendUrl", exampleAppBackendUrl);
         model.addAttribute("keycloakUrl", keycloakUrl);
         model.addAttribute("keycloakRealm", keycloakRealm);
         model.addAttribute("keycloakClient", keycloakClient);
+        model.addAttribute("eddieUrl", eddieUrl);
+        model.addAttribute("eddieHistoricDataneedId", eddieHistoricDataneedId);
+        model.addAttribute("eddieRealtimeDataneedId", eddieRealtimeDataneedId);
 
         return "index";
     }

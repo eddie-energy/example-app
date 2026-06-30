@@ -14,12 +14,20 @@
         const THYMELEAF_KEYCLOAK_URL = /*[[${keycloakUrl}]]*/ undefined
         const THYMELEAF_KEYCLOAK_REALM = /*[[${keycloakRealm}]]*/ undefined
         const THYMELEAF_KEYCLOAK_CLIENT = /*[[${keycloakClient}]]*/ undefined
+        const THYMELEAF_EDDIE_URL = /*[[${eddieUrl}]]*/ undefined
+        const THYMELEAF_EDDIE_HISTORIC_DATANEED_ID = /*[[${eddieHistoricDataneedId}]]*/ undefined
+        const THYMELEAF_EDDIE_REALTIME_DATANEED_ID = /*[[${eddieRealtimeDataneedId}]]*/ undefined
     </script>
 
     <title>Eddie Example App</title>
   </head>
   <body>
-    <script type="module" src="%VITE_EDDIE_URL%/lib/eddie-components.js"></script>
+    <script>
+      const _s = document.createElement('script')
+      _s.type = 'module'
+      _s.src = (THYMELEAF_EDDIE_URL ?? '%VITE_EDDIE_URL%') + '/lib/eddie-components.js'
+      document.currentScript.after(_s)
+    </script>
 
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>

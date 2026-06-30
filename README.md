@@ -24,6 +24,10 @@ KEYCLOAK_URL=https://eddie-demo.projekte.fh-hagenberg.at/iam/
 KEYCLOAK_REALM=EDDIE
 KEYCLOAK_CLIENT=example-app-client
 
+EDDIE_PUBLIC_URL=https://eddie-demo.projekte.fh-hagenberg.at/hardening/eddie
+EDDIE_HISTORIC_DATANEED_ID=a32c5da1-2ca6-426b-8438-21d5b33e3b12
+EDDIE_REALTIME_DATANEED_ID=d3aa2f01-f1be-436a-bcac-d2e0dae95848
+
 TRUST_STORE_LOCATION=certs/kafka/client.truststore.jks
 TRUST_STORE_PASSWORD=REPLACE_ME
 ```

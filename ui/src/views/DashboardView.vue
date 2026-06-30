@@ -3,10 +3,10 @@ import CustomButton from '@/components/CustomButton.vue'
 import PermissionItem from '@/components/PermissionItem.vue'
 import { keycloak } from '@/keycloak'
 import { fetchPermissions, permissions } from '@/stores/permissions'
-import {computed, onMounted, ref, useTemplateRef, watch} from 'vue'
+import { computed, onMounted, ref, useTemplateRef } from 'vue'
 
-const historicDataneedID = import.meta.env.VITE_EDDIE_HISTORIC_DATANEED_ID
-const realtimeDataneedID = import.meta.env.VITE_EDDIE_REALTIME_DATANEED_ID
+const historicDataneedID = THYMELEAF_EDDIE_HISTORIC_DATANEED_ID ?? import.meta.env.VITE_EDDIE_HISTORIC_DATANEED_ID
+const realtimeDataneedID = THYMELEAF_EDDIE_REALTIME_DATANEED_ID ?? import.meta.env.VITE_EDDIE_REALTIME_DATANEED_ID
 
 const userId = ref<string | undefined>()
 const selectedTab = ref<'active' | 'complete'>('active')
@@ -14,9 +14,10 @@ const permissionCategory = ref<'VALIDATED_HISTORICAL_DATA' | 'REAL_TIME_DATA'>(
   'VALIDATED_HISTORICAL_DATA',
 )
 
-const filteredPermissions = computed(() => permissions.value
+const filteredPermissions = computed(() =>
+  permissions.value
     .filter((perm) => perm.type === permissionCategory.value)
-    .sort((a, b) => b.createdAt - a.createdAt)
+    .sort((a, b) => b.createdAt - a.createdAt),
 )
 
 const eddieButton = useTemplateRef('eddie-button')
@@ -85,9 +86,9 @@ onMounted(async () => {
         </div>
         <TransitionGroup class="list" tag="ul" name="list">
           <PermissionItem
-              v-for="permission in filteredPermissions"
-              :key="permission.id"
-              :permission
+            v-for="permission in filteredPermissions"
+            :key="permission.id"
+            :permission
           />
           <h2 v-if="!filteredPermissions.length">No {{ selectedTab }} Permissions</h2>
         </TransitionGroup>
