@@ -9,8 +9,8 @@ import { fetchPermissions } from '@/stores/permissions'
 
 const router = useRouter()
 
-const historicDataneedID = import.meta.env.VITE_EDDIE_HISTORIC_DATANEED_ID
-const realtimeDataneedID = import.meta.env.VITE_EDDIE_REALTIME_DATANEED_ID
+const historicDataneedID = THYMELEAF_EDDIE_HISTORIC_DATANEED_ID ?? import.meta.env.VITE_EDDIE_HISTORIC_DATANEED_ID
+const realtimeDataneedID = THYMELEAF_EDDIE_REALTIME_DATANEED_ID ?? import.meta.env.VITE_EDDIE_REALTIME_DATANEED_ID
 
 const userId = ref<string | undefined>()
 const historicButton = useTemplateRef<HTMLButtonElement>('historic-eddie-button')
